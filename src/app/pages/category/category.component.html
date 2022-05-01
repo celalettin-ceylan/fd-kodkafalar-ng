@@ -1,0 +1,86 @@
+<div class="p-2 pl-4 bg-white border-round border-solid border-300 border-1 text-primary">
+    <h2> Category Edit Page</h2>
+</div>
+
+
+<div class="p-2 mt-2 bg-white border-round border-solid border-300 border-1 text-primary">
+    <p-table [value]="categories" [paginator]="true" [rows]="5"
+        responsiveLayout="scroll" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5,10,15]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-category>
+            <tr>
+                <td>{{category.id}}</td>
+                <td>{{category.name}}</td>
+                <td>{{category.slug}}</td>
+                <td>
+                    <span (click)="delete(category.id)"><i class="pi pi-trash"></i></span>
+                    <span (click)="getInfoToUI(category)"><i class="pi pi-pencil ml-4"></i></span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+
+
+<div class="p-4 bg-white border-round border-solid border-300 border-1 mt-2">
+
+    <form #categoryForm="ngForm" (ngSubmit)="save()">
+
+        <div class="grid" *ngIf="category.id">
+            <div class="col-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+                    <input id="name" class="w-full border-1 pl-2" type="text" pInputText placeholder="Name"
+                        [(ngModel)]="category.id" name="id" disabled="true">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-list"></i></span>
+                    <input id="name" class="w-full border-1 pl-2" type="text" pInputText placeholder="Name"
+                        [(ngModel)]="category.name" name="name" [required]="true">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-link"></i></span>
+                    <input id="slug" class="w-full border-1 pl-2" type="text" pInputText placeholder="Slug"
+                        [(ngModel)]="category.slug" name="slug" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid mt-2">
+            <label class="border-1 border-400 bg-color-100 ml-2 p-2 border-round surface-200 text-800"> Description:
+            </label>
+            <div class="col-12">
+                <textarea rows="10" class="w-full border-1 p-4 border-round" type="text"
+                    placeholder="Please type description of category" [(ngModel)]="category.description"
+                    name="description" required> </textarea>
+            </div>
+        </div>
+
+        <button pButton label="Save" type="submit" icon="pi pi-save"> </button>
+        <button pButton label="Clear" type="button" (click)="clear()" class="ml-4 p-button-help" icon="pi pi-reply"></button>
+        
+    </form>
+
+
+</div>
